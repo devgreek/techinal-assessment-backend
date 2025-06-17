@@ -1,0 +1,18 @@
+{
+  "name": "express-minimal",
+  "version": "1.0.0",
+  "description": "A minimal Express application",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^9.0.2",
+    "uuid": "^11.1.0"
+  },
+  "author": "",
+  "license": "ISC"
+}
