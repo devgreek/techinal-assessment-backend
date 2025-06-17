@@ -6,12 +6,12 @@ module.exports = {
     // For RS256, use these environment variables to provide private and public keys
     privateKey: process.env.JWT_PRIVATE_KEY || null,
     publicKey: process.env.JWT_PUBLIC_KEY || null, 
-    accessExpiration: 30 * 60, // 30 minutes in seconds (1800s)
-    refreshExpiration: 7 * 24 * 60 * 60, // 7 days in seconds (604,800s)
+    accessExpiration: parseInt(process.env.ACCESS_TOKEN_EXPIRY) || 30 * 60, // 30 minutes in seconds (1800s)
+    refreshExpiration: parseInt(process.env.REFRESH_TOKEN_EXPIRY) || 7 * 24 * 60 * 60 // 7 days in seconds (604,800s)
   },
   cookie: {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
+    httpOnly: process.env.COOKIE_HTTP_ONLY !== 'false',
+    secure: process.env.COOKIE_SECURE === 'true' || process.env.NODE_ENV === 'production',
+    sameSite: process.env.COOKIE_SAME_SITE || 'strict',
   }
 };

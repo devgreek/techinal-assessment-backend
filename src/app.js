@@ -1,3 +1,6 @@
+// Load environment variables from .env file
+require('dotenv').config();
+
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -12,7 +15,7 @@ app.use(cookieParser());
 
 // Configure CORS
 const corsOptions = {
-  origin: 'http://localhost:3000', // Allow requests from your frontend
+  origin: process.env.CORS_ORIGIN || 'http://localhost:3000', // Allow requests from your frontend
   credentials: true,               // Allow cookies to be sent with requests
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
