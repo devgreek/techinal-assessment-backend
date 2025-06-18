@@ -25,6 +25,7 @@ function setupRoutes(app) {
   app.post("/auth/login", authController.login);
   app.post("/auth/refresh", authController.refresh);
   app.post("/auth/logout", authController.logout);
+  app.post("/auth/signup", authController.signup);
 
   // Protected route example
   app.get("/protected", verifyToken, (req, res) => {

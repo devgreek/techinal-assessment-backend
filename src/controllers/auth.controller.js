@@ -216,6 +216,34 @@ const AuthController = {
     clearTokenCookies(res);
     
     res.status(200).json({ message: 'Logged out successfully' });
+  },
+  
+  signup: (req, res) => {
+    const { username, password, name } = req.body;
+    if (!username || !password) {
+      return res.status(400).json({ message: 'Username and password are required' });
+    }
+    // Check if user already exists
+    if (User.findByCredentials(username, password)) {
+      return res.status(409).json({ message: 'User already exists' });
+    }
+    const user = User.create({ username, password, name });
+    if (!user) {
+      return res.status(409).json({ message: 'Username already taken' });
+    }
+    // Auto-login after signup
+    const userAgent = req.get('User-Agent') || '';
+    const ip = req.ip || req.connection.remoteAddress || '';
+    const tokens = generateTokens(user.id, userAgent, ip);
+    setTokenCookies(res, tokens);
+    res.status(201).json({
+      user: {
+        id: user.id,
+        username: user.username,
+        name: user.name
+      },
+      message: 'Signup successful'
+    });
   }
 };
 

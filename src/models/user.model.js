@@ -17,6 +17,21 @@ const User = {
 
   findById: (id) => {
     return users.find(user => user.id === id);
+  },
+
+  create: ({ username, password, name }) => {
+    // Check if username already exists
+    if (users.some(user => user.username === username)) {
+      return null;
+    }
+    const newUser = {
+      id: users.length ? users[users.length - 1].id + 1 : 1,
+      username,
+      password,
+      name: name || username
+    };
+    users.push(newUser);
+    return newUser;
   }
 };
 
