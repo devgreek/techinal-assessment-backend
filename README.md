@@ -209,6 +209,50 @@ The following environment variables can be set to customize the JWT authenticati
 - **POST /auth/refresh**: Refresh access token using refresh token
 - **POST /auth/logout**: Invalidate the current refresh token
 
+## Testing Authentication Endpoints
+
+This project includes comprehensive test scripts to verify the JWT authentication implementation:
+
+### Available Test Scripts
+
+- **`test-login.js`**: Tests the complete authentication flow (login, refresh, protected routes, logout)
+- **`test-token-reuse.js`**: Tests the token reuse detection security feature
+- **`test-token-expiration.js`**: Tests handling of expired tokens and token refresh
+
+### Running the Tests
+
+Make sure the server is running before executing the tests. To run all tests:
+
+```bash
+# Run all tests in sequence
+cd src/tests
+
+# Or run individual tests
+node test-login.js
+node test-token-reuse.js
+node test-token-expiration.js
+```
+
+### Test Scenarios Covered
+
+1. **Standard Authentication Flow**:
+   - Login with valid credentials
+   - Access protected resources with valid token
+   - Refresh the token
+   - Access protected resources with refreshed token
+   - Logout
+   - Verify protection after logout
+
+2. **Token Reuse Detection**:
+   - Simulates a scenario where a refresh token is stolen
+   - Verifies that using a previously used refresh token is detected
+   - Tests security measures taken when token reuse is detected
+
+3. **Token Expiration**:
+   - Tests behavior with expired access tokens
+   - Verifies the token refresh process works correctly
+   - Ensures refreshed tokens provide access to protected resources
+
 ## Additional Information
 
 - You can expand the routes in `src/routes/index.js` to add more functionality to your application.
