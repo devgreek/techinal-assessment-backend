@@ -85,6 +85,13 @@ function clearTokenCookies(res) {
 
 const AuthController = {
   login: (req, res) => {
+    console.log('Login attempt with body:', req.body);
+    
+    // Check if body is undefined or null
+    if (!req.body) {
+      return res.status(400).json({ message: 'Request body is missing' });
+    }
+    
     const { username, password } = req.body;
     
     if (!username || !password) {

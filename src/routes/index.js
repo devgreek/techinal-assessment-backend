@@ -10,8 +10,17 @@ function setupRoutes(app) {
     res.send("Hello, World!");
   });
 
+  // Test endpoint for API health check
+  app.get('/api/status', (req, res) => {
+    res.json({ 
+      status: 'ok',
+      timestamp: new Date(),
+      message: 'API is running correctly'
+    });
+  });
+
   // Authentication routes
-  app.use("/auth", authRoutes);
+  // app.use("/auth", authRoutes);
 
   app.post("/auth/login", authController.login);
   app.post("/auth/refresh", authController.refresh);
